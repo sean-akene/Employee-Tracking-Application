@@ -3,14 +3,14 @@ const mysql = require("mysql");
 const inquirer = require("inquirer");
 const cTable = require("console.table");
 const { CLIENT_RENEG_LIMIT } = require("tls");
-//Create the connection information for the sql database
+//Creating the connection information for sql
 const connection = mysql.createConnection({
   host: "localhost",
   // Port
   port: 3306,
   // Username
   user: "root",
-  // Password
+  // Password (none)
   password: "",
   database: "employee_appDB",
 });
@@ -18,7 +18,7 @@ connection.connect(function (err) {
   if (err) throw err;
   promptUser();
 });
-//Questions
+//Input Questions
 const questions = [
   {
     type: "list",
@@ -33,6 +33,7 @@ const questions = [
     ],
   },
 ];
+// function for the inquirer
 function promptUser() {
   inquirer.prompt(questions).then((res) => {
     switch (res.optionForStart) {
@@ -55,6 +56,7 @@ function promptUser() {
         connection.end();
     }
   });
+//   viewing all the employees
   function viewAllEmployees() {
     connection.query("SELECT * FROM employee", function (err, res) {
       if (err) throw err;
@@ -62,6 +64,7 @@ function promptUser() {
       promptUser();
     });
   }
+//   adding employees
   function addEmployee() {
     connection.query("SELECT * FROM role ORDER BY title", function (err, res) {
       if (err) throw err;
@@ -136,6 +139,7 @@ function promptUser() {
       );
     });
   }
+//   viewing all departments 
   function viewDepartments() {
     connection.query("SELECT * FROM department", function (
       err,
@@ -146,6 +150,7 @@ function promptUser() {
       promptUser();
     });
   }
+//   updating employee role data
   function updateEmployeeRole() {
     connection.query(
       "SELECT DISTINCT(concat(first_name,' ',last_name)) id, first_name, last_name FROM employee",
