@@ -182,7 +182,7 @@ function promptUser() {
                                     type: "list",
                                     name: "update_manager",
                                     message:
-                                        "Which employee's do you want set as manager for the selected employee?",
+                                        "Which employees do you want set as the manager for the selected employee?",
                                     choices: managerChoices,
                                 },
                             ])
